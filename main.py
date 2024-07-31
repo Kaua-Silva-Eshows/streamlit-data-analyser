@@ -26,6 +26,22 @@ def authenticate(userName: str, userPassword: str):
         return response
     else:
         return None
+    
+def main():
+    if st.session_state['jwt_token']:
+        user_data = decode_jwt(st.session_state['jwt_token'])
+        if user_data:
+            st.session_state['user_data'] = user_data
+            st.session_state['loggedIn'] = True
+        else:
+            st.session_state['jwt_token'] = None
+            st.session_state['loggedIn'] = False
+
+    if not st.session_state['loggedIn']:
+        show_login_page()
+        st.stop()
+    else:
+        st.switch_page("pages/Home.py")
 
 def show_login_page():
     col1, col2 = st.columns([4,1])
@@ -43,22 +59,6 @@ def show_login_page():
             st.experimental_rerun() #Força o carreganeto da pagina
         else:
             st.error("Email ou senha inválidos!")
-
-def main():
-    if st.session_state['jwt_token']:
-        user_data = decode_jwt(st.session_state['jwt_token'])
-        if user_data:
-            st.session_state['user_data'] = user_data
-            st.session_state['loggedIn'] = True
-        else:
-            st.session_state['jwt_token'] = None
-            st.session_state['loggedIn'] = False
-
-    if not st.session_state['loggedIn']:
-        show_login_page()
-        st.stop()
-    else:
-        st.switch_page("pages/Home.py")
     
 if __name__ == '__main__':
     st.set_page_config(
