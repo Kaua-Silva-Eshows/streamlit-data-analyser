@@ -4,7 +4,12 @@ from utils.user import *
 import requests
 from utils.components import hide_sidebar
 
-initialize_session_state()
+def initialize_session_state():
+    if 'jwt_token' not in st.session_state:
+        st.session_state['jwt_token'] = None
+        st.session_state['loggedIn'] = False
+        st.session_state['user_data'] = None
+        st.session_state['page'] = 'login'
 
 def authenticate(userName: str, userPassword: str):
     login_data = {
