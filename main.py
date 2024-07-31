@@ -26,6 +26,7 @@ def authenticate(userName: str, userPassword: str):
         return None
     
 def main():
+    initialize_session_state()
     if st.session_state['jwt_token']:
         user_data = decode_jwt(st.session_state['jwt_token'])
         if user_data:
@@ -58,7 +59,7 @@ def show_login_page():
         else:
             st.error("Email ou senha inválidos!")
 
-            
+
 if __name__ == '__main__':
     st.set_page_config(
     page_title="Relatórios Eshows",
