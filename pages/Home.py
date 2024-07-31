@@ -11,7 +11,9 @@ from menu.reviews import ReviewPage
 from menu.operational_performance import OperationalPerformacePage
 from menu.show_statement import ShowStatementPage
 
-st.set_page_config(
+
+def render():
+    st.set_page_config(
     page_title="Relatórios Eshows",
     page_icon="./assets/imgs/eshows-logo100x100.png",
     layout="wide",
@@ -90,5 +92,7 @@ if st.session_state['loggedIn']:
         except Exception as e:
             st.error(f'Não foi possível carregar a página. Erro: {e}')
 
-else:
-    st.switch_page("main.py")
+    if 'user_data' in st.session_state:
+        render()
+    else:
+        st.switch_page("main.py")
