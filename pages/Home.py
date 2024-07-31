@@ -11,21 +11,7 @@ from menu.reviews import ReviewPage
 from menu.operational_performance import OperationalPerformacePage
 from menu.show_statement import ShowStatementPage
 
-
 def render():
-    st.set_page_config(
-    page_title="Relatórios Eshows",
-    page_icon="./assets/imgs/eshows-logo100x100.png",
-    layout="wide",
-)
-
-hide_sidebar()
-fix_tab_echarts()
-
-if 'loggedIn' not in st.session_state:
-    st.switch_page("main.py")
-
-if st.session_state['loggedIn']:
     user_id = st.session_state['user_data']["data"]["user_id"]
     user_name = st.session_state['user_data']["data"]['full_name']
 
@@ -91,6 +77,19 @@ if st.session_state['loggedIn']:
             page.render()
         except Exception as e:
             st.error(f'Não foi possível carregar a página. Erro: {e}')
+
+if __name__ == "__main__":
+    if 'jwt_token' not in st.session_state:
+        st.switch_page("main.py")
+
+    st.set_page_config(
+        page_title="Relatórios Eshows",
+        page_icon="./assets/imgs/eshows-logo100x100.png",
+        layout="wide",
+)
+
+    hide_sidebar()
+    fix_tab_echarts()
 
     if 'user_data' in st.session_state:
         render()

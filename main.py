@@ -1,8 +1,8 @@
 import streamlit as st
+from utils.components import hide_sidebar
+import requests
 from utils.jwt_utils import *
 from utils.user import *
-import requests
-from utils.components import hide_sidebar
 
 def initialize_session_state():
     if 'jwt_token' not in st.session_state:
@@ -17,9 +17,7 @@ def authenticate(userName: str, userPassword: str):
         "password": userPassword,
         "loginSource": 1,
     }
-    
     response = requests.post('https://api.eshows.com.br/v1/Security/Login', json=login_data).json()
-
     if "error" in response:
         return None
     elif response["data"]["success"]:
@@ -48,18 +46,19 @@ def show_login_page():
     col2.image("./assets/imgs/eshows-logo.png", width=100)
     col1.write("## Dashboard de dados")
     userName = st.text_input(label="", value="", placeholder="Email")
-    userPassword = st.text_input(label="", value="", placeholder="Senha", type="password")
+    password = st.text_input(label="", value="", placeholder="Senha", type="password")
     if st.button("login"):
-        user_data = authenticate(userName, userPassword)
+        user_data = authenticate(userName, password)
         if user_data:
             st.session_state['jwt_token'] = encode_jwt(user_data)
             st.session_state['user_data'] = user_data
             st.session_state['loggedIn'] = True
-            st.switch_page("pages/Home.py")
+            st.switch_page("pages/home.py")
             st.experimental_rerun() #Força o carreganeto da pagina
         else:
             st.error("Email ou senha inválidos!")
-    
+
+            
 if __name__ == '__main__':
     st.set_page_config(
     page_title="Relatórios Eshows",
