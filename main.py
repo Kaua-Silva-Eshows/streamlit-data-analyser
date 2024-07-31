@@ -1,4 +1,5 @@
 import streamlit as st
+import jwt
 from utils.components import hide_sidebar
 import requests
 from utils.jwt_utils import *

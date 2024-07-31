@@ -13,13 +13,19 @@ def encode_jwt(user_data):
         "iat": datetime.datetime.utcnow(),
         "sub": user_data
     }
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-
+    try:
+        return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    except Exception as e:
+        print(f"Erro ao codificar o JWT: {e}")
+        return None
+    
 def decode_jwt(token):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
         return payload["sub"]
     except jwt.ExpiredSignatureError:
+        print("Token expirado.")
         return None
     except jwt.InvalidTokenError:
+        print("Token inválido.")
         return None
