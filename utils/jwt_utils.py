@@ -6,6 +6,8 @@ from secrets import *
 SECRET_KEY = st.secrets["general"]["SECRET_KEY"]
 
 def encode_jwt(user_data):
+    if not isinstance(SECRET_KEY, str):
+        raise ValueError("SECRET_KEY deve ser uma string.")
     payload = {
         "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),  # Token expira em 1 dia
         "iat": datetime.datetime.utcnow(),
