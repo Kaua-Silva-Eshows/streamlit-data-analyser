@@ -1,5 +1,4 @@
 import streamlit as st
-import jwt
 from utils.components import hide_sidebar
 import requests
 from utils.jwt_utils import *
@@ -55,7 +54,7 @@ def show_login_page():
             st.session_state['jwt_token'] = encode_jwt(user_data)
             st.session_state['user_data'] = user_data
             st.session_state['loggedIn'] = True
-            st.switch_page("pages/home.py")
+            st.switch_page("pages/Home.py")
             st.experimental_rerun() #Força o carreganeto da pagina
         else:
             st.error("Email ou senha inválidos!")
