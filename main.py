@@ -61,6 +61,7 @@ def show_login_page():
 
 
 if __name__ == '__main__':
+    initialize_session_state()
     st.set_page_config(
     page_title="Relatórios Eshows",
     page_icon="./assets/imgs/eshows-logo100x100.png",

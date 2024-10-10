@@ -332,7 +332,7 @@ def plotGeneralFinanceChart(df):
     # Transformando e agrupando valores
     df['VALOR_GANHO_BRUTO'] = df['VALOR_GANHO_BRUTO'].astype(int)
     df_byMonth = df.groupby('MES')['VALOR_GANHO_BRUTO'].sum().reset_index()
-
+    
     # Plotando gráficos
     plotBarChart(order_and_format_month_dataframe(df_byMonth), 'MES', 'VALOR_GANHO_BRUTO', f'Valor investido por mês em {datetime.date.today().year}')
 

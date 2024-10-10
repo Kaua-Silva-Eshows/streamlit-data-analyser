@@ -1,5 +1,4 @@
 import streamlit as st
-import jwt
 from utils.components import *
 from utils.functions import *
 from data.get_data import initialize_data, get_data_GeneralDash, get_data_Finances, get_data_Review, get_data_OperationalPerformace, get_data_ShowStatement
@@ -44,12 +43,10 @@ def render():
     # Body
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["DASH GERAL", "FINANCEIRO", "AVALIAÇÕES", "DESEMPENHO OPERACIONAL", "EXTRATO DE SHOWS"])
     with tab1:
-        try:
             data = get_data_GeneralDash(data, user_id, inputDate, inputEstablishment)
             page = GeneralDashPage(data)
             page.render()
-        except Exception as e:
-            st.error(f'Não foi possível carregar a página. Erro: {e}')
+
     with tab2:
         try:
             data = get_data_Finances(data, user_id, inputDate, inputEstablishment)

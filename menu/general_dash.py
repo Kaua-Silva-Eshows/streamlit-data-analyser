@@ -1,12 +1,16 @@
 # menu/general_dash.py
+from matplotlib import pyplot as plt
 import streamlit as st
 from utils.components import *
 from utils.functions import *
 from decimal import Decimal
-
+import pandas as pd
+import streamlit as st
+import os
 from menu.page import Page
 
 def buildGeneralDash(generalFinances, financeDash, averageReviewHouseByArtist, ByOccurrence, showStatement):
+
     # pegando valores
     artists = len(pd.unique(showStatement['ARTISTA']))
     stablishment = len(pd.unique(showStatement['ESTABELECIMENTO']))

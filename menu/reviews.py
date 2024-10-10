@@ -6,7 +6,7 @@ from decimal import Decimal
 
 from menu.page import Page
 
-def buildReview(artistRanking, reviewArtistByHouse, averageReviewArtistByHouse, reviewHouseByArtist, averageReviewHouseByArtist):
+def buildReview(artistRanking, reviewArtistByHouse, averageReviewArtistByHouse, reviewHouseByArtist, averageReviewHouseByArtist, commentsArtists):
     artistRanking = format_artist_ranking(artistRanking)
     artistRanking = artistRanking.rename(columns={'NUM_SHOWS_ARTISTA': 'NÚMERO DE SHOWS', 'MEDIA_NOTAS': 'MÉDIA', 'QUANTIDADE_AVALIACOES': 'NÚMERO DE AVALIAÇÕES'})
 
@@ -56,6 +56,11 @@ def buildReview(artistRanking, reviewArtistByHouse, averageReviewArtistByHouse, 
                 plotDataframe(reviewHouseByArtist, "Avaliações recebidas recentemente")
             with row2[1]:
                 plotDataframe(averageReviewHouseByArtist, "Satisfação média do artista")
+
+            row3 = st.columns([1])
+            with row3[0]:
+                plotDataframe(commentsArtists, 'Comentario dos Artistas')
+            
     pass
 
 class ReviewPage(Page):
@@ -64,4 +69,6 @@ class ReviewPage(Page):
                     self.data['reviewArtistByHouse'].copy(), 
                     self.data['averageReviewArtistByHouse'].copy(), 
                     self.data['reviewHouseByArtist'].copy(), 
-                    self.data['averageReviewHouseByArtist'].copy())
+                    self.data['averageReviewHouseByArtist'].copy(),
+                    self.data['commentsArtists'].copy())
+                    
